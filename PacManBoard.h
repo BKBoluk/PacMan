@@ -13,6 +13,7 @@ struct Field
     bool hasFruit;
     bool PacManPosition;
     bool isWall;
+    bool MonsterPosition;
 };
 
 class PacManBoard
@@ -26,6 +27,11 @@ public:
     int getBoardWidth();
     int getBoardHeight();
     bool isWallHere(int, int);
+    bool isPacManHere(int, int);
+    bool isMonsterHere(int, int);
+    void spawnFruit();
+    void spawnMonster();
+    bool isFruitHere(int, int);
 
 
 };
