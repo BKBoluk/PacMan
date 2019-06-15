@@ -14,7 +14,6 @@ PacManSFMLmenu::PacManSFMLmenu()
 
 void PacManSFMLmenu::menu()
 {
-
     sf::Font font;
     font.loadFromFile("arial.ttf");
     sf::RenderWindow window(sf::VideoMode(800, 600), "PacMan");
@@ -23,8 +22,6 @@ void PacManSFMLmenu::menu()
     if (!music.openFromFile("music/button-31.wav"));
     Music music1;
     if (!music1.openFromFile("music/BossFight.wav"));
-
-
 
     sf::Text texta;
     texta.setFont(font);
@@ -73,8 +70,6 @@ void PacManSFMLmenu::menu()
     text[6].setString("RIGHT :  D");
 
 
-
-
     RectangleShape button;
     button.setSize(sf::Vector2f(300,100));
     button.setFillColor(sf::Color(136, 154, 189));
@@ -94,11 +89,7 @@ void PacManSFMLmenu::menu()
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
                 window.close();
-
         }
-
-
-
         if(button.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(window))))
         {
             music.play();
@@ -114,9 +105,6 @@ void PacManSFMLmenu::menu()
             button.setOutlineThickness(3.f);
             text1.setOutlineThickness(3.f);
         }
-
-
-
 
         // clear the window with black color
         window.clear(sf::Color(213, 215, 214));
@@ -136,7 +124,4 @@ void PacManSFMLmenu::menu()
         // end the current frame
         window.display();
     }
-
-
-
 }

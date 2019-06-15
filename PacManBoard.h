@@ -8,6 +8,8 @@
 
 using namespace std;
 
+enum GameState {RUNNING, FINISHED_WIN, FINISHED_LOSS};
+
 struct Field
 {
     bool hasFruit;
@@ -23,15 +25,24 @@ class PacManBoard
     int height;
 public:
     PacManBoard(int, int);
-    void debug_display();
     int getBoardWidth();
     int getBoardHeight();
+    int getPacManXPos();
+    int getPacManYPos();
+    int CountFruits();
     bool isWallHere(int, int);
     bool isPacManHere(int, int);
     bool isMonsterHere(int, int);
+    bool isFruitHere(int, int);
+    bool isEmpty(int, int);
     void spawnFruit();
     void spawnMonster();
-    bool isFruitHere(int, int);
+    void MovePacMan(int, int);
+    void EmptyField(int, int);
+    void EatFruit(int, int);
+    void debug_display();
+    GameState getGameState();
+
 
 
 };

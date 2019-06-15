@@ -2,6 +2,7 @@
 #include "PacManBoard.h"
 #include "PacManSFMLmenu.h"
 #include "PacManSFMLview.h"
+#include "PacManSFMLgameresult.h"
 
 int main()
 {
@@ -10,6 +11,8 @@ int main()
     PacManSFMLview b(a);
     view.menu();
     b.view();
+    PacManSFMLgameresult gameresult(a);
+    gameresult.gameresult();
 
 
  return 0;

@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
+#include <windows.h>
 
 using namespace std;
 using namespace sf;
@@ -19,15 +20,15 @@ void PacManSFMLview::view()
     font.loadFromFile("arial.ttf");
     int X=board.getBoardWidth();
     int Y=board.getBoardHeight();
+    int Xp=board.getPacManXPos();
+    int Yp=board.getPacManYPos();
     int size=50;;
     int x0=50;
     int y0=50;
 
-    Music music1;
-    if (!music1.openFromFile("music/BossFight.wav"));
-
     board.spawnFruit();
     board.spawnMonster();
+    board.MovePacMan(Xp,Yp);
 
     RenderWindow window(VideoMode(800, 600), "PacMan");
     sf::RectangleShape plansza[X][Y];
@@ -54,29 +55,16 @@ void PacManSFMLview::view()
             plansza[j][i].setOutlineThickness(2.f);
         }
     }
-    music1.play();
-    double x=0;
-    while (window.isOpen())
+
+    while (window.isOpen()&&board.getGameState()==RUNNING)
     {
 
         Event ev;
-        int wd=800;
         while (window.pollEvent(ev))
         {
             if (ev.type == Event::Closed || ev.type == Event::KeyPressed && ev.key.code == Keyboard::Escape)
                 window.close();
         }
-
-        int z;
-        z=wd-x;
-        x+=0.05;
-        if(z==-400)
-        {
-            x=0;
-        }
-        text3.setPosition(z, 550);
-
-
         for(size_t i = 0; i < X; i++)
         {
 
@@ -100,8 +88,8 @@ void PacManSFMLview::view()
                 }
                 if(board.isPacManHere(i,j)==true)
                 {
-                    PacMan[j][i].setSize(sf::Vector2f(size/2,size/2));
-                    PacMan[j][i].setPosition( i *size+x0+size/4, j*size+y0+size/4);
+                    PacMan[j][i].setSize(sf::Vector2f(size,size));
+                    PacMan[j][i].setPosition( i *size+x0, j*size+y0);
                     PacMan[j][i].setFillColor(sf::Color::Blue);
                     PacMan[j][i].setOutlineColor(sf::Color::Black);
                     PacMan[j][i].setOutlineThickness(2.f);
@@ -114,9 +102,45 @@ void PacManSFMLview::view()
                     PacMan[j][i].setOutlineColor(sf::Color::Black);
                     PacMan[j][i].setOutlineThickness(2.f);
                 }
+                if(board.isEmpty(i,j)==true)
+                {
+                    PacMan[j][i].setSize(sf::Vector2f(size,size));
+                    PacMan[j][i].setPosition( i *size+x0, j*size+y0);
+                    PacMan[j][i].setFillColor(sf::Color(0,100,0));
+                    PacMan[j][i].setOutlineColor(sf::Color::Black);
+                    PacMan[j][i].setOutlineThickness(2.f);
+                }
             }
         }
+        Sleep(100);
 
+        if ((Keyboard::isKeyPressed(Keyboard::D) || Keyboard::isKeyPressed(Keyboard::Right))&&board.isWallHere(Xp+1,Yp)==false)
+        {
+            Xp++;
+            board.EmptyField(Xp-1, Yp);
+        }
+        if ((Keyboard::isKeyPressed(Keyboard::A) || Keyboard::isKeyPressed(Keyboard::Left))&&board.isWallHere(Xp-1,Yp)==false)
+        {
+            Xp--;
+            board.EmptyField(Xp+1, Yp);
+        }
+        if ((Keyboard::isKeyPressed(Keyboard::W) || Keyboard::isKeyPressed(Keyboard::Up))&&board.isWallHere(Xp,Yp-1)==false)
+        {
+            Yp--;
+            board.EmptyField(Xp, Yp+1);
+        }
+        if ((Keyboard::isKeyPressed(Keyboard::S) || Keyboard::isKeyPressed(Keyboard::Down))&&board.isWallHere(Xp,Yp+1)==false)
+        {
+            Yp++;
+            board.EmptyField(Xp, Yp-1);
+        }
+
+        if(board.isFruitHere(Xp, Yp)==true)
+        {
+            board.EatFruit(Xp, Yp);
+        }
+
+        board.MovePacMan(Xp, Yp);
         window.clear(Color::Black);
 
         window.draw(text3);
@@ -128,8 +152,6 @@ void PacManSFMLview::view()
                 window.draw(PacMan[j][i]);
             }
         }
-
-
         window.display();
     }
 }

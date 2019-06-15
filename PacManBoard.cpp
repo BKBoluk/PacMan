@@ -114,6 +114,31 @@ bool PacManBoard::isPacManHere(int x, int y)
         return false;
 }
 
+bool PacManBoard::isEmpty(int x, int y)
+{
+    if(board[x][y].hasFruit==false&&board[x][y].PacManPosition==false&&board[x][y].MonsterPosition==false&&board[x][y].isWall==false)
+        return true;
+    else
+        return false;
+}
+
+
+void PacManBoard::MovePacMan(int x, int y)
+{
+    board[x][y].PacManPosition=true;
+}
+
+void PacManBoard::EmptyField(int x, int y)
+{
+    board[x][y].PacManPosition=false;
+
+}
+
+void PacManBoard::EatFruit(int x, int y)
+{
+    board[x][y].hasFruit=false;
+}
+
 int PacManBoard::getBoardHeight()
 {
     return height;
@@ -123,6 +148,63 @@ int PacManBoard::getBoardHeight()
 int PacManBoard::getBoardWidth()
 {
     return width;
+}
+
+int PacManBoard::getPacManXPos()
+{
+    for(int i=0; i<width; i++)
+    {
+        for(int j=0; j<height; j++)
+        {
+            if(board[j][i].PacManPosition==true)
+                return j;
+        }
+    }
+}
+
+int PacManBoard::getPacManYPos()
+{
+    for(int i=0; i<width; i++)
+    {
+        for(int j=0; j<height; j++)
+        {
+            if(board[j][i].PacManPosition==true)
+                return i;
+        }
+    }
+}
+
+int PacManBoard::CountFruits()
+{
+    int FruitCount=0;
+    for(int i=0; i<width; i++)
+    {
+        for(int j=0; j<height; j++)
+        {
+            if(board[j][i].hasFruit==true)
+                FruitCount++;
+        }
+    }
+    return FruitCount;
+}
+
+GameState PacManBoard::getGameState()
+{
+    int state=0;
+    for(int i=0; i<width; i++)
+    {
+        for(int j=0; j<height; j++)
+        {
+            if(board[j][i].PacManPosition==true&&board[j][i].MonsterPosition==true)
+                state=1;
+        }
+    }
+    if(CountFruits()==0)
+        return FINISHED_WIN;
+    if(state==1)
+        return FINISHED_LOSS;
+    else
+        return RUNNING;
 }
 
 
