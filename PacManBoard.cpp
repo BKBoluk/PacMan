@@ -64,7 +64,7 @@ void PacManBoard::spawnFruit()
 
 void PacManBoard::spawnMonster()
 {
-    int MonsterCount=3;
+    int MonsterCount=1;
     srand(time(NULL));
     int x=0;
     int y=0;
@@ -73,7 +73,7 @@ void PacManBoard::spawnMonster()
     {
         x=rand()%width;
         y=rand()%height;
-        if(board[x][y].isWall==false&&board[x][y].hasFruit==false&&board[x][y].MonsterPosition==false)
+        if(board[x][y].isWall==false&&board[x][y].hasFruit==false&&board[x][y].MonsterPosition==false&&board[x][y].PacManPosition==false)
         {
             board[x][y].MonsterPosition=true;
             MonsterCount--;
@@ -128,10 +128,15 @@ void PacManBoard::MovePacMan(int x, int y)
     board[x][y].PacManPosition=true;
 }
 
+void PacManBoard::MoveMonster(int x, int y)
+{
+    board[x][y].MonsterPosition=true;
+}
+
 void PacManBoard::EmptyField(int x, int y)
 {
     board[x][y].PacManPosition=false;
-
+    board[x][y].MonsterPosition=false;
 }
 
 void PacManBoard::EatFruit(int x, int y)
@@ -169,6 +174,30 @@ int PacManBoard::getPacManYPos()
         for(int j=0; j<height; j++)
         {
             if(board[j][i].PacManPosition==true)
+                return i;
+        }
+    }
+}
+
+int PacManBoard::getMonsterXPos()
+{
+    for(int i=0; i<width; i++)
+    {
+        for(int j=0; j<height; j++)
+        {
+            if(board[j][i].MonsterPosition==true)
+                return j;
+        }
+    }
+}
+
+int PacManBoard::getMonsterYPos()
+{
+    for(int i=0; i<width; i++)
+    {
+        for(int j=0; j<height; j++)
+        {
+            if(board[j][i].MonsterPosition==true)
                 return i;
         }
     }

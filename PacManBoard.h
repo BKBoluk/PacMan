@@ -29,6 +29,8 @@ public:
     int getBoardHeight();
     int getPacManXPos();
     int getPacManYPos();
+    int getMonsterXPos();
+    int getMonsterYPos();
     int CountFruits();
     bool isWallHere(int, int);
     bool isPacManHere(int, int);
@@ -38,6 +40,7 @@ public:
     void spawnFruit();
     void spawnMonster();
     void MovePacMan(int, int);
+    void MoveMonster(int, int);
     void EmptyField(int, int);
     void EatFruit(int, int);
     void debug_display();

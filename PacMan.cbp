@@ -49,6 +49,8 @@
 		</Linker>
 		<Unit filename="PacManBoard.cpp" />
 		<Unit filename="PacManBoard.h" />
+		<Unit filename="PacManSFMLgameresult.cpp" />
+		<Unit filename="PacManSFMLgameresult.h" />
 		<Unit filename="PacManSFMLmenu.cpp" />
 		<Unit filename="PacManSFMLmenu.h" />
 		<Unit filename="PacManSFMLview.cpp" />
