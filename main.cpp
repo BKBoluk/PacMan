@@ -6,7 +6,7 @@
 
 int main()
 {
-    PacManBoard a(10,10);
+    PacManBoard a(20,20);
     PacManSFMLmenu view;
     PacManSFMLview b(a);
     view.menu();

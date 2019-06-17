@@ -26,7 +26,7 @@ void PacManSFMLview::view()
     int Yp=board.getPacManYPos();
     int Xm=board.getMonsterXPos();
     int Ym=board.getMonsterYPos();
-    int size=50;;
+    int size=25;
     int x0=50;
     int y0=50;
     srand(time(NULL));
@@ -43,15 +43,44 @@ void PacManSFMLview::view()
     RenderWindow window(VideoMode(800, 600), "PacMan");
     sf::RectangleShape plansza[X][Y];
     sf::RectangleShape PacMan[X][Y];
+    sf::RectangleShape Icon[10];
 
-    Text text3;
-    text3.setFont(font);
-    text3.setColor(sf::Color::White);
-    text3.setCharacterSize(30);
-    text3.setPosition(570, 50);
-    text3.setString("FRUIT LEFT: ");
-    text3.setOutlineColor(sf::Color::Black);
-    text3.setOutlineThickness(3.f);
+    Text text[10];
+    for(int i=0; i<10; i++)
+    {
+        text[i].setFont(font);
+        text[i].setColor(sf::Color::White);
+        text[i].setCharacterSize(30);
+        text[i].setOutlineColor(sf::Color::Black);
+        text[i].setOutlineThickness(3.f);
+    }
+
+    for(int i=0; i<10; i++)
+    {
+        Icon[i].setPosition(570,100);
+        Icon[i].setSize(sf::Vector2f(50,50));
+        Icon[i].setFillColor(sf::Color::Red);
+        Icon[i].setOutlineColor(sf::Color::Black);
+        Icon[i].setOutlineThickness(2.f);
+    }
+
+    Icon[1].setPosition(570,200);
+    Icon[1].setFillColor(sf::Color::Yellow);
+
+    Icon[2].setPosition(570,300);
+    Icon[2].setFillColor(sf::Color::Blue);
+
+    text[0].setPosition(650, 300);
+    text[0].setString("- PacMan");
+
+    text[1].setPosition(570, 50);
+    text[1].setString("FRUIT LEFT: ");
+
+    text[2].setPosition(650, 100);
+    text[2].setString("- Fruit");
+
+    text[3].setPosition(650, 200);
+    text[3].setString("- Monster");
 
     for(size_t i = 0; i < X; i++)
     {
@@ -74,59 +103,56 @@ void PacManSFMLview::view()
             if (ev.type == Event::Closed || ev.type == Event::KeyPressed && ev.key.code == Keyboard::Escape||board.getGameState()!=RUNNING)
                 window.close();
         }
-
-        int c=board.CountFruits();
         if(board.CountFruits()==24)
-            text3.setString("FRUIT LEFT: 24");
+            text[1].setString("FRUIT LEFT: 24");
         if(board.CountFruits()==23)
-            text3.setString("FRUIT LEFT: 23");
+            text[1].setString("FRUIT LEFT: 23");
         if(board.CountFruits()==22)
-            text3.setString("FRUIT LEFT: 22");
+            text[1].setString("FRUIT LEFT: 22");
         if(board.CountFruits()==21)
-            text3.setString("FRUIT LEFT: 21");
+            text[1].setString("FRUIT LEFT: 21");
         if(board.CountFruits()==20)
-            text3.setString("FRUIT LEFT: 20");
+            text[1].setString("FRUIT LEFT: 20");
         if(board.CountFruits()==19)
-            text3.setString("FRUIT LEFT: 19");
+            text[1].setString("FRUIT LEFT: 19");
         if(board.CountFruits()==18)
-            text3.setString("FRUIT LEFT: 18");
+            text[1].setString("FRUIT LEFT: 18");
         if(board.CountFruits()==17)
-            text3.setString("FRUIT LEFT: 17");
+            text[1].setString("FRUIT LEFT: 17");
         if(board.CountFruits()==16)
-            text3.setString("FRUIT LEFT: 16");
+            text[1].setString("FRUIT LEFT: 16");
         if(board.CountFruits()==15)
-            text3.setString("FRUIT LEFT: 15");
+            text[1].setString("FRUIT LEFT: 15");
         if(board.CountFruits()==14)
-            text3.setString("FRUIT LEFT: 14");
+            text[1].setString("FRUIT LEFT: 14");
         if(board.CountFruits()==13)
-            text3.setString("FRUIT LEFT: 13");
+            text[1].setString("FRUIT LEFT: 13");
         if(board.CountFruits()==12)
-            text3.setString("FRUIT LEFT: 12");
+            text[1].setString("FRUIT LEFT: 12");
         if(board.CountFruits()==11)
-            text3.setString("FRUIT LEFT: 11");
+            text[1].setString("FRUIT LEFT: 11");
         if(board.CountFruits()==10)
-            text3.setString("FRUIT LEFT: 10");
+            text[1].setString("FRUIT LEFT: 10");
         if(board.CountFruits()==9)
-            text3.setString("FRUIT LEFT: 9");
+            text[1].setString("FRUIT LEFT: 9");
         if(board.CountFruits()==8)
-            text3.setString("FRUIT LEFT: 8");
+            text[1].setString("FRUIT LEFT: 8");
         if(board.CountFruits()==8)
-            text3.setString("FRUIT LEFT: 7");
+            text[1].setString("FRUIT LEFT: 7");
         if(board.CountFruits()==7)
-            text3.setString("FRUIT LEFT: 7");
+            text[1].setString("FRUIT LEFT: 7");
         if(board.CountFruits()==6)
-            text3.setString("FRUIT LEFT: 6");
+            text[1].setString("FRUIT LEFT: 6");
         if(board.CountFruits()==5)
-            text3.setString("FRUIT LEFT: 5");
+            text[1].setString("FRUIT LEFT: 5");
         if(board.CountFruits()==4)
-            text3.setString("FRUIT LEFT: 4");
+            text[1].setString("FRUIT LEFT: 4");
         if(board.CountFruits()==3)
-            text3.setString("FRUIT LEFT: 3");
+            text[1].setString("FRUIT LEFT: 3");
         if(board.CountFruits()==2)
-            text3.setString("FRUIT LEFT: 2");
+            text[1].setString("FRUIT LEFT: 2");
         if(board.CountFruits()==1)
-            text3.setString("FRUIT LEFT: 1");
-
+            text[1].setString("FRUIT LEFT: 1");
 
         for(size_t i = 0; i < X; i++)
         {
@@ -175,7 +201,8 @@ void PacManSFMLview::view()
                 }
             }
         }
-        Sleep(100);
+
+        Sleep(70);
 
         if ((Keyboard::isKeyPressed(Keyboard::D) || Keyboard::isKeyPressed(Keyboard::Right))&&board.isWallHere(Xp+1,Yp)==false)
         {
@@ -206,7 +233,6 @@ void PacManSFMLview::view()
 
         randx=rand()%3-1;
         randy=rand()%3-1;
-
         if (randx==1&&randy==0&&board.isWallHere(Xm+1, Ym)==false)
         {
             Xm++;
@@ -232,8 +258,12 @@ void PacManSFMLview::view()
         board.MoveMonster(Xm, Ym);
         window.clear(Color(0,130,0));
 
+        for(int i=0; i<=3; i++)
+        {
+            window.draw(text[i]);
+            window.draw(Icon[i]);
+        }
 
-        window.draw(text3);
         for(size_t i = 0; i < X; i++)
         {
             for(size_t j = 0; j < Y; j++)

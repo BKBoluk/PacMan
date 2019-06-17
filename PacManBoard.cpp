@@ -16,31 +16,76 @@ PacManBoard::PacManBoard(int w, int h):width(w), height(h)
             board[j][i].PacManPosition=false;
             board[j][i].MonsterPosition=false;
             board[0][i].isWall=true;
-            board[9][i].isWall=true;
+            board[19][i].isWall=true;
             board[j][0].isWall=true;
-            board[j][9].isWall=true;
+            board[j][19].isWall=true;
         }
-
     }
-
     for(int i=2; i<=width-3; i++)
     {
         for(int j=2; j<=height-3; j++)
         {
             board[2][i].isWall=true;
-            board[7][i].isWall=true;
+            board[17][i].isWall=true;
             board[j][2].isWall=true;
-            board[j][7].isWall=true;
+            board[j][17].isWall=true;
         }
-
     }
-    board[5][4].isWall=true;
-    board[4][4].isWall=true;
-    board[2][5].isWall=false;
-    board[7][5].isWall=false;
+    for(int i=4; i<=width-5; i++)
+    {
+        for(int j=4; j<=height-5; j++)
+        {
+            board[4][i].isWall=true;
+            board[15][i].isWall=true;
+            board[j][4].isWall=true;
+            board[j][15].isWall=true;
+        }
+    }
+    for(int i=6; i<=width-7; i++)
+    {
+        for(int j=6; j<=height-7; j++)
+        {
+            board[6][i].isWall=true;
+            board[13][i].isWall=true;
+            board[j][6].isWall=true;
+            board[j][13].isWall=true;
+        }
+    }
+
+    board[10][10].isWall=true;
+    board[9][10].isWall=true;
+    board[10][9].isWall=true;
+    board[9][9].isWall=true;
+
+    board[10][2].isWall=false;
+    board[10][4].isWall=false;
+    board[10][6].isWall=false;
+    board[9][2].isWall=false;
+    board[9][4].isWall=false;
+    board[9][6].isWall=false;
+
+    board[10][17].isWall=false;
+    board[10][15].isWall=false;
+    board[10][13].isWall=false;
+    board[9][17].isWall=false;
+    board[9][15].isWall=false;
+    board[9][13].isWall=false;
+
+    board[2][10].isWall=false;
+    board[4][10].isWall=false;
+    board[6][10].isWall=false;
+    board[2][9].isWall=false;
+    board[4][9].isWall=false;
+    board[6][9].isWall=false;
+
+    board[17][10].isWall=false;
+    board[15][10].isWall=false;
+    board[13][10].isWall=false;
+    board[17][9].isWall=false;
+    board[15][9].isWall=false;
+    board[13][9].isWall=false;
+
     board[7][5].PacManPosition=true;
-
-
 }
 
 void PacManBoard::spawnFruit()
@@ -88,7 +133,6 @@ bool PacManBoard::isMonsterHere(int x, int y)
     else
         return false;
 }
-
 
 bool PacManBoard::isWallHere(int x, int y)
 {
