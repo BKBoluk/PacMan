@@ -10,6 +10,13 @@
 using namespace std;
 using namespace sf;
 
+enum PacManDirection {UP, DOWN, LEFT, RIGHT, NONE};
+
+PacManDirection currentDirection = NONE;
+
+enum MonsterDirection {UP1, DOWN1, LEFT1, RIGHT1, NONE1};
+
+MonsterDirection MonstercurrentDirection = RIGHT1;
 
 PacManSFMLview::PacManSFMLview(PacManBoard& board) :board(board)
 {
@@ -35,10 +42,6 @@ void PacManSFMLview::view()
     board.spawnFruit();
     board.MovePacMan(Xp,Yp);
     board.MoveMonster(Xm,Ym);
-
-    Music music;
-    if (!music.openFromFile("music/button-31.wav"));
-    Music music1;
 
     RenderWindow window(VideoMode(800, 600), "PacMan");
     sf::RectangleShape plansza[X][Y];
@@ -74,7 +77,7 @@ void PacManSFMLview::view()
     text[0].setString("- PacMan");
 
     text[1].setPosition(570, 50);
-    text[1].setString("FRUIT LEFT: ");
+    text[1].setString("FRUIT LEFT: 25");
 
     text[2].setPosition(650, 100);
     text[2].setString("- Fruit");
@@ -94,9 +97,10 @@ void PacManSFMLview::view()
             plansza[j][i].setOutlineThickness(2.f);
         }
     }
+    int licznik=0;
     while (window.isOpen())
     {
-
+        licznik++;
         Event ev;
         while (window.pollEvent(ev))
         {
@@ -203,7 +207,7 @@ void PacManSFMLview::view()
         }
 
         Sleep(70);
-
+        //================================sterowanie zwyk³e=================
         if ((Keyboard::isKeyPressed(Keyboard::D) || Keyboard::isKeyPressed(Keyboard::Right))&&board.isWallHere(Xp+1,Yp)==false)
         {
             Xp++;
@@ -224,31 +228,74 @@ void PacManSFMLview::view()
             Yp++;
             board.EmptyField(Xp, Yp-1);
         }
+        //==============================================================
+
+
+        /*if (Keyboard::isKeyPressed(Keyboard::D) || Keyboard::isKeyPressed(Keyboard::Right))  //Sterowanie Pacmanem. PacMan bedzie szed³ w kierunku a¿ natrafi na œcianê lub zmienimy kierunek
+            currentDirection = RIGHT;
+        if (Keyboard::isKeyPressed(Keyboard::A) || Keyboard::isKeyPressed(Keyboard::Left))
+            currentDirection = LEFT;
+        if (Keyboard::isKeyPressed(Keyboard::W) || Keyboard::isKeyPressed(Keyboard::Up))
+            currentDirection = UP;
+        if (Keyboard::isKeyPressed(Keyboard::S) || Keyboard::isKeyPressed(Keyboard::Down))
+            currentDirection = DOWN;
+
+
+        if (currentDirection==RIGHT&board.isWallHere(Xp+1,Yp)==false)
+        {
+            Xp++;
+            board.EmptyField(Xp-1, Yp);
+        }
+        if (currentDirection==LEFT&board.isWallHere(Xp-1,Yp)==false)
+        {
+            Xp--;
+            board.EmptyField(Xp+1, Yp);
+        }
+        if(currentDirection==UP&board.isWallHere(Xp,Yp-1)==false)
+        {
+            Yp--;
+            board.EmptyField(Xp, Yp+1);
+        }
+        if(currentDirection==DOWN&board.isWallHere(Xp,Yp+1)==false)
+        {
+            Yp++;
+            board.EmptyField(Xp, Yp-1);
+        }*/
 
         if(board.isFruitHere(Xp, Yp)==true)
         {
             board.EatFruit(Xp, Yp);
-            music.play();
         }
 
-        randx=rand()%3-1;
-        randy=rand()%3-1;
-        if (randx==1&&randy==0&&board.isWallHere(Xm+1, Ym)==false)
+        if(licznik%3==0)
+        {
+            randx=rand()%4+1;
+            if(randx==1)
+                MonstercurrentDirection=LEFT1;
+            if(randx==2)
+                MonstercurrentDirection=RIGHT1;
+            if(randx==3)
+                MonstercurrentDirection=UP1;
+            if(randx==4)
+                MonstercurrentDirection=DOWN1;
+        }
+
+        if (MonstercurrentDirection==LEFT1&&board.isWallHere(Xm+1, Ym)==false)
         {
             Xm++;
             board.EmptyField(Xm-1, Ym);
         }
-        if (randx==-1&&randy==0&&board.isWallHere(Xm-1, Ym)==false)
+        if (MonstercurrentDirection==RIGHT1&&board.isWallHere(Xm-1, Ym)==false)
         {
             Xm--;
             board.EmptyField(Xm+1, Ym);
         }
-        if (randx==0&&randy==1&&board.isWallHere(Xm, Ym+1)==false)
+        if (MonstercurrentDirection==UP1&&board.isWallHere(Xm, Ym+1)==false)
         {
             Ym++;
             board.EmptyField(Xm, Ym-1);
         }
-        if (randx==0&&randy==-1&&board.isWallHere(Xm, Ym-1)==false)
+        if (MonstercurrentDirection==DOWN1&&board.isWallHere(Xm, Ym-1)==false)
         {
             Ym--;
             board.EmptyField(Xm, Ym+1);

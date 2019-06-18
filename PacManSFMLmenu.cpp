@@ -18,11 +18,6 @@ void PacManSFMLmenu::menu()
     font.loadFromFile("arial.ttf");
     sf::RenderWindow window(sf::VideoMode(800, 600), "PacMan");
 
-    Music music;
-    if (!music.openFromFile("music/button-31.wav"));
-    Music music1;
-    if (!music1.openFromFile("music/BossFight.wav"));
-
     sf::Text texta;
     texta.setFont(font);
     texta.setColor(sf::Color::White);
@@ -92,7 +87,6 @@ void PacManSFMLmenu::menu()
         }
         if(button.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(window))))
         {
-            music.play();
             button.setOutlineThickness(4.f);
             text1.setOutlineThickness(4.f);
             if (event.mouseButton.button == sf::Mouse::Left)

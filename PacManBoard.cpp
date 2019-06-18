@@ -16,9 +16,9 @@ PacManBoard::PacManBoard(int w, int h):width(w), height(h)
             board[j][i].PacManPosition=false;
             board[j][i].MonsterPosition=false;
             board[0][i].isWall=true;
-            board[19][i].isWall=true;
+            board[width-1][i].isWall=true;
             board[j][0].isWall=true;
-            board[j][19].isWall=true;
+            board[j][height-1].isWall=true;
         }
     }
     for(int i=2; i<=width-3; i++)
@@ -26,9 +26,9 @@ PacManBoard::PacManBoard(int w, int h):width(w), height(h)
         for(int j=2; j<=height-3; j++)
         {
             board[2][i].isWall=true;
-            board[17][i].isWall=true;
+            board[width-3][i].isWall=true;
             board[j][2].isWall=true;
-            board[j][17].isWall=true;
+            board[j][height-3].isWall=true;
         }
     }
     for(int i=4; i<=width-5; i++)
@@ -36,9 +36,9 @@ PacManBoard::PacManBoard(int w, int h):width(w), height(h)
         for(int j=4; j<=height-5; j++)
         {
             board[4][i].isWall=true;
-            board[15][i].isWall=true;
+            board[width-5][i].isWall=true;
             board[j][4].isWall=true;
-            board[j][15].isWall=true;
+            board[j][height-5].isWall=true;
         }
     }
     for(int i=6; i<=width-7; i++)
@@ -46,9 +46,9 @@ PacManBoard::PacManBoard(int w, int h):width(w), height(h)
         for(int j=6; j<=height-7; j++)
         {
             board[6][i].isWall=true;
-            board[13][i].isWall=true;
+            board[width-7][i].isWall=true;
             board[j][6].isWall=true;
-            board[j][13].isWall=true;
+            board[j][height-7].isWall=true;
         }
     }
 
